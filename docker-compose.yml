@@ -2,11 +2,22 @@ version: "3"
 
 services:
 
+  nginx:
+    image: wwwumr/nginx
+    hostname: nginx
+    posrt:
+      - "80:80"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.07
+    extra_hosts:
+      - "frontend1: 172.16.238.08:8079"
+      - "frontend2: 172.16.238.09:8079"
+      - "frontend3: 172.16.238.10:8079"
+
   frontend1:
     image: dplsming/sockshop-frontend:0.1
     hostname: frontend1
-    ports:
-      - "8079:8079"
     networks:
       app_net:
         ipv4_address: 172.16.238.08
@@ -21,8 +32,6 @@ services:
   frontend2:
     image: dplsming/sockshop-frontend:0.1
     hostname: frontend2
-    ports:
-      - "8079:8079"
     networks:
       app_net:
         ipv4_address: 172.16.238.09
@@ -37,8 +46,6 @@ services:
   frontend3:
     image: dplsming/sockshop-frontend:0.1
     hostname: frontend3
-    ports:
-      - "8079:8079"
     networks:
       app_net:
         ipv4_address: 172.16.238.10
