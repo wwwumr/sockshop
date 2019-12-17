@@ -9,10 +9,10 @@ services:
       - "80:80"
     networks:
       app_net:
-        ipv4_address: 172.16.238.07
+        ipv4_address: 172.16.238.7
     extra_hosts:
-      - "frontend1: 172.16.238.08:8079"
-      - "frontend2: 172.16.238.09:8079"
+      - "frontend1: 172.16.238.8:8079"
+      - "frontend2: 172.16.238.9:8079"
       - "frontend3: 172.16.238.10:8079"
 
   frontend1:
@@ -20,7 +20,7 @@ services:
     hostname: frontend1
     networks:
       app_net:
-        ipv4_address: 172.16.238.08
+        ipv4_address: 172.16.238.8
     extra_hosts:
       - "shipping: 172.16.238.11"
       - "user: 172.16.238.12"
@@ -34,7 +34,7 @@ services:
     hostname: frontend2
     networks:
       app_net:
-        ipv4_address: 172.16.238.09
+        ipv4_address: 172.16.238.9
     extra_hosts:
       - "shipping: 172.16.238.11"
       - "user: 172.16.238.12"
