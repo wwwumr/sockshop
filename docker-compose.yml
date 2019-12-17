@@ -5,7 +5,7 @@ services:
   nginx:
     image: wwwumr/nginx
     hostname: nginx
-    posrt:
+    ports:
       - "80:80"
     networks:
       app_net:
