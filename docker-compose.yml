@@ -1,0 +1,150 @@
+version: "3"
+
+services:
+
+  frontend1:
+    image: dplsming/sockshop-frontend:0.1
+    hostname: frontend1
+    ports:
+      - "8079:8079"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.08
+    extra_hosts:
+      - "shipping: 172.16.238.11"
+      - "user: 172.16.238.12"
+      - "orders:172.16.238.13"
+      - "carts: 172.16.238.14"
+      - "payment: 172.16.238.15"
+      - "catalogue: 172.16.238.16"
+
+  frontend2:
+    image: dplsming/sockshop-frontend:0.1
+    hostname: frontend2
+    ports:
+      - "8079:8079"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.09
+    extra_hosts:
+      - "shipping: 172.16.238.11"
+      - "user: 172.16.238.12"
+      - "orders:172.16.238.13"
+      - "carts: 172.16.238.14"
+      - "payment: 172.16.238.15"
+      - "catalogue: 172.16.238.16"
+
+  frontend3:
+    image: dplsming/sockshop-frontend:0.1
+    hostname: frontend3
+    ports:
+      - "8079:8079"
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.10
+    extra_hosts:
+      - "shipping: 172.16.238.11"
+      - "user: 172.16.238.12"
+      - "orders:172.16.238.13"
+      - "carts: 172.16.238.14"
+      - "payment: 172.16.238.15"
+      - "catalogue: 172.16.238.16"
+
+  shipping:
+    image: weaveworksdemos/shipping:0.4.8
+    hostname: shipping
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.11
+
+  user:
+    image: weaveworksdemos/user:0.4.4
+    hostname: user
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.12
+    extra_hosts:
+      - "user-db: 172.16.238.18"
+    environment:
+      - MONGO_HOST=user-db:27017
+
+  orders:
+    image: weaveworksdemos/orders:0.4.7
+    hostname: orders
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.13
+    extra_hosts:
+      - "shipping: 172.16.238.11"
+      - "user: 172.16.238.12"
+      - "carts: 172.16.238.14"
+      - "payment: 172.16.238.15"
+      - "orders-db: 172.16.238.19"
+    environment:
+      - MONGO_HOST=orders-db:27017
+
+  carts:
+    image: weaveworksdemos/carts:0.4.8
+    hostname: carts
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.14
+    extra_hosts:
+      - "carts-db: 172.16.238.17"
+    environment:
+      - MONGO_HOST=carts-db:27017
+
+  payment:
+    image: weaveworksdemos/payment:0.4.3
+    hostname: payment
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.15
+
+  catalogue:
+    image: weaveworksdemos/catalogue:0.3.5
+    hostname: catalogue
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.16
+    extra_hosts:
+      - "catalogue-db: 172.16.238.20"
+
+  carts-db:
+    image: mongo:3.4
+    hostname: carts-db
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.17
+
+  user-db:
+    image: mongo:3.4
+    hostname: user-db
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.18
+
+  orders-db:
+    image: mongo:3.4
+    hostname: orders-db
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.19
+
+  catalogue-db:
+    image: dplsming/sockshop-cataloguedb:0.1
+    hostname: catalogue-db
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.20
+
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+
+
