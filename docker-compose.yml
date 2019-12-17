@@ -11,9 +11,9 @@ services:
       app_net:
         ipv4_address: 172.16.238.7
     extra_hosts:
-      - "frontend1: 172.16.238.8:8079"
-      - "frontend2: 172.16.238.9:8079"
-      - "frontend3: 172.16.238.10:8079"
+      - "frontend1: 172.16.238.8"
+      - "frontend2: 172.16.238.9"
+      - "frontend3: 172.16.238.10"
 
   frontend1:
     image: dplsming/sockshop-frontend:0.1
